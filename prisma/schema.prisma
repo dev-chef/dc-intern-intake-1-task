@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model MentorProfile {
+  userId       String             @id
+  bio          String?
+  rating       Float?
+  bookings     Booking[]          @relation("MentorBookings")
+  availability AvailabilitySlot[]
+}
+
+model MenteeProfile {
+  userId   String    @id
+  bookings Booking[] @relation("MenteeBookings")
+}
+
+
+model AvailabilitySlot {
+  id       String   @id @default(cuid())
+  mentorId String
+  start    DateTime
+  end      DateTime
+
+  mentor   MentorProfile @relation(fields: [mentorId], references: [userId])
+}
+
+model Booking {
+  id       String         @id @default(cuid())
+  menteeId String
+  mentorId String
+  date     DateTime
+  status   BookingStatus  @default(PENDING)
+
+  mentee   MenteeProfile  @relation("MenteeBookings", fields: [menteeId], references: [userId])
+  mentor   MentorProfile  @relation("MentorBookings", fields: [mentorId], references: [userId])
+}
+
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
