@@ -1,3 +1,22 @@
+# Task Definition
+
+1. We need to build a simple booking system based on the prisma schema defined in ./prisma/schema.prisma. we have two main types of users in the system: Mentor & Mentee
+
+Minimum Requirements
+
+1. Mentor can add availabity slots.
+2. Mentee can request to book a slot (slot booking is pending)
+3. Mentor (Different Screen) can see booking requests for each slot
+4. Mentor can Confirm / Cancel pending slot
+
+Extra requirements
+
+1. User authentication (you can use ready made auth solutions like Clerk)
+2. Calendar view for solots
+3. Mentor can change status of booking slot from Confirmed to Completed
+4. Change from sqlite to a hosted database (ex: Postgres)
+5. Deployment to Vercel
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
